@@ -5,9 +5,13 @@
 
     <data>
 
+        <import type="com.mustafayigit.bookstore.data.remote.Status" />
+
+        <import type="android.view.View" />
+
         <variable
-            name="viewmodel"
-            type="com.mustafayigit.bookstore.viewmodel.BookViewModel" />
+            name="resource"
+            type="com.mustafayigit.bookstore.data.remote.Resource" />
     </data>
 
     <LinearLayout
@@ -22,18 +26,20 @@
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewmodel.isLoading()}" />
+            android:visibility="@{resource.status == Status.LOADING ? View.VISIBLE : View.GONE}" />
 
         <TextView
             android:id="@+id/errorMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewmodel.getErrorMessage()}" />
+            android:text="@{resource.message}"
+            android:visibility="@{resource.status == Status.ERROR ? View.VISIBLE : View.GONE}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="@{resource.status == Status.SUCCESS ? View.VISIBLE : View.GONE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 

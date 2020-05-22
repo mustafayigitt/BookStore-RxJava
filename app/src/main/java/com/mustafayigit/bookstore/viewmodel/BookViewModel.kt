@@ -1,7 +1,6 @@
 package com.mustafayigit.bookstore.viewmodel
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mustafayigit.bookstore.data.model.Book
@@ -19,15 +18,12 @@ class BookViewModel : ViewModel() {
 
     private val repository: BookRepository = BookRepository()
     private val bookList: MutableLiveData<Resource<List<Book>>> = MutableLiveData()
-    private val isLoading = MutableLiveData<Boolean>()
 
     init {
         fetchBooks()
     }
 
     fun getBooks() = bookList
-    fun isLoading() = if (isLoading.value!!) View.VISIBLE else View.GONE
-    fun getErrorMessage(): String? = bookList.value?.message ?: ""
 
     private fun fetchBooks() {
         bookList.postValue(Resource(Status.LOADING, null, null))
@@ -38,12 +34,10 @@ class BookViewModel : ViewModel() {
                 {
                     Log.v("TEST", "SUCCESS $it")
                     bookList.postValue(Resource(Status.SUCCESS, it, null))
-                    isLoading.value = false
                 },
                 {
                     Log.v("TEST", "FAIL $it")
-                    bookList.postValue(Resource(Status.ERROR, null, it.toString()))
-                    isLoading.value = false
+                    bookList.postValue(Resource(Status.ERROR, null, it.message))
                 }
             )
     }

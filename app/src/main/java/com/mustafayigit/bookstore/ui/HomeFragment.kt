@@ -1,7 +1,6 @@
 package com.mustafayigit.bookstore.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mustafayigit.bookstore.R
 import com.mustafayigit.bookstore.adapter.BookListAdapter
-import com.mustafayigit.bookstore.data.remote.Status
 import com.mustafayigit.bookstore.databinding.FragmentHomeBinding
 import com.mustafayigit.bookstore.viewmodel.BookViewModel
 
@@ -47,26 +45,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.recyclerBook.adapter = BookListAdapter(arrayListOf())
 
         bookViewModel.getBooks().observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                    Log.v("MAIN", "Loading...")
-                    binding.progress.visibility = View.VISIBLE
-                    binding.errorMessage.visibility = View.GONE
-                }
-                Status.ERROR -> {
-                    Log.v("MAIN", "ERROR... ${it.message}")
-                    binding.progress.visibility = View.GONE
-                    binding.recyclerBook.visibility = View.GONE
-                    binding.errorMessage.visibility = View.VISIBLE
-
-                }
-                Status.SUCCESS -> {
-                    Log.v("MAIN", "SUCCESS...${it.data}")
-                    binding.progress.visibility = View.GONE
-                    binding.errorMessage.visibility = View.GONE
-                    (binding.recyclerBook.adapter as BookListAdapter).updateData(it.data!!)
-                }
-            }
+            binding.resource = it
+            (binding.recyclerBook.adapter as BookListAdapter).updateData(it.data.orEmpty())
         })
     }
 
