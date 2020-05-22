@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.mustafayigit.bookstore.R
 import com.mustafayigit.bookstore.databinding.FragmentDetailBinding
 
@@ -37,13 +36,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun initUI() {
         binding.book = currentBook.book
-        Glide.with(requireContext())
-            .load(currentBook.book.cover)
-            .into(binding.imgDetailCover)
-        Glide.with(requireContext())
-            .load(currentBook.book.writer[0].imageUrl)
-            .into(binding.imgBookWriterPhoto)
-
     }
 
 }

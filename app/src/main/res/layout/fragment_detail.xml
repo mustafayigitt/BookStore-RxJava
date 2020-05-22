@@ -20,6 +20,7 @@
         <ImageView
             android:id="@+id/imgDetailCover"
             android:layout_width="match_parent"
+            loadImage="@{book.cover}"
             android:layout_height="150dp" />
 
         <TextView
@@ -37,6 +38,7 @@
 
             <ImageView
                 android:id="@+id/imgBookWriterPhoto"
+                loadImage="@{book.writer[0].imageUrl}"
                 android:layout_width="100dp"
                 android:layout_height="100dp" />
 

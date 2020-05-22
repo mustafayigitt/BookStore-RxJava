@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="book"
+            type="com.mustafayigit.bookstore.data.model.Book" />
+
+    </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -18,19 +25,19 @@
 
             <ImageView
                 android:id="@+id/imgBookCover"
+                loadImage="@{book.cover}"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:contentDescription="book cover image"
-                android:padding="4dp"
-                tools:background="@drawable/ic_launcher_foreground" />
+                android:padding="4dp" />
 
             <TextView
                 android:id="@+id/txtBookTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textAlignment="center"
-                tools:text="@string/app_name" />
+                android:text="@{book.title}"
+                android:textAlignment="center" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

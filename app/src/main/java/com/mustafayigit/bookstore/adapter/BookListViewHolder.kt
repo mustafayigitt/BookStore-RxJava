@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.mustafayigit.bookstore.R
 import com.mustafayigit.bookstore.data.model.Book
 import com.mustafayigit.bookstore.databinding.AdapterItemBookListBinding
@@ -32,16 +31,12 @@ class BookListViewHolder(private val binding: AdapterItemBookListBinding) :
     }
 
     fun bind(book: Book) {
-        binding.txtBookTitle.text = book.title
-        Glide.with(itemView.context)
-            .load(book.cover)
-            .placeholder(R.drawable.ic_launcher_foreground)
-            .into(binding.imgBookCover)
+
+        binding.book = book
 
         binding.root.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(book)
             binding.root.findNavController().navigate(action)
         }
-
     }
 }
